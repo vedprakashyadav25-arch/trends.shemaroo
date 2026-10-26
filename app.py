@@ -743,7 +743,7 @@ with youtube_tab:
     st.caption("Opens Google Trends Explore with YouTube Search selected for the last 7 days.")
 
     api_key = st.text_input(
-        "YouTube Data API key",
+        "YouTube Data AAPI key",
         type="password",
         help="Enter your YouTube Data API key."
     )

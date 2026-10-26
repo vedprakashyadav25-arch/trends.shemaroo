@@ -736,11 +736,11 @@ with keyword_tab:
 # ---------------- YOUTUBE TRENDS ----------------
 with youtube_tab:
     st.header("📺 YouTube Popular Videos")
-    #st.link_button(
-     #   "Open Google Trends — YouTube Search (Last 7 Days)",
-      #  "https://trends.google.com/trends/explore?date=now%207-d&gprop=youtube&hl=en-US"
-    #)
-    st.caption("Opens Google Trends Explore with YouTube Search selected for the last 7 days.")
+
+    st.caption(
+        "Opens Google Trends Explore with YouTube Search selected "
+        "for the last 7 days."
+    )
 
     api_key = st.secrets.get("YOUTUBE_API_KEY", "")
 
@@ -758,16 +758,15 @@ with youtube_tab:
     )
 
     if st.button("Load YouTube Trends"):
-        api_key = st.secrets.get("YOUTUBE_API_KEY", "")
-
-if not api_key:
-    st.warning("YouTube API key is missing from Streamlit Secrets.")
+        if not api_key:
+            st.error(
+                "YouTube API key is missing from Streamlit Secrets. "
+                "Please check your app settings."
+            )
         else:
             try:
                 with st.spinner("Fetching popular YouTube videos..."):
-                    url = (
-                        "https://www.googleapis.com/youtube/v3/videos"
-                    )
+                    url = "https://www.googleapis.com/youtube/v3/videos"
 
                     params = {
                         "part": "snippet,statistics",
@@ -806,6 +805,7 @@ if not api_key:
 
                     if rows:
                         df = pd.DataFrame(rows)
+
                         st.dataframe(
                             df,
                             use_container_width=True,
@@ -815,7 +815,7 @@ if not api_key:
                         st.download_button(
                             "Download YouTube Trends CSV",
                             df.to_csv(index=False).encode("utf-8"),
-                            "youtube_trends_india.csv",
+                            "youtube_trends.csv",
                             "text/csv"
                         )
                     else:
@@ -834,7 +834,6 @@ if not api_key:
         "Open YouTube Charts",
         "https://www.youtube.com/feed/trending"
     )
-
 
 # ---------------- GOOGLE TRENDS EXPLORE: YOUTUBE SEARCH ----------------
 with explore_youtube_tab:

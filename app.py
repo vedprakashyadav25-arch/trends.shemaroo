@@ -743,7 +743,8 @@ with youtube_tab:
     )
 
     api_key = st.secrets.get("YOUTUBE_API_KEY", "")
-
+st.write("API key loaded:", bool(api_key))
+st.write("API key length:", len(api_key))
     region = st.selectbox(
         "Country",
         ["IN", "US", "GB", "CA", "AU"],

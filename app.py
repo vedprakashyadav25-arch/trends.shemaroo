@@ -758,8 +758,10 @@ with youtube_tab:
     )
 
     if st.button("Load YouTube Trends"):
-        if not api_key.strip():
-            st.warning("Please enter your YouTube API key.")
+        api_key = st.secrets.get("YOUTUBE_API_KEY", "")
+
+if not api_key:
+    st.warning("YouTube API key is missing from Streamlit Secrets.")
         else:
             try:
                 with st.spinner("Fetching popular YouTube videos..."):
